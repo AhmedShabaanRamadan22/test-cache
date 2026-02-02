@@ -1,0 +1,26 @@
+name: docker-build-with-gha-cache
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        version: latest
+
+    - name: Docker build with GHA cache
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: false
+        tags: demo:with-cache
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
