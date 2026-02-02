@@ -1,4 +1,4 @@
-name: docker-build-with-gha-cache
+name: docker-build-no-cache
 
 on:
   push:
@@ -16,11 +16,9 @@ jobs:
       with:
         version: latest
 
-    - name: Docker build with GHA cache
+    - name: Docker build (no cache)
       uses: docker/build-push-action@v6
       with:
         context: .
         push: false
-        tags: demo:with-cache
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+        tags: demo:no-cache
